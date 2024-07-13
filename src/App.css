@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+input {
+  padding: .6em 1em;
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+input[type="checkbox"] {
+  transform: scale(1.75);
+  margin-right: 1em;
+}
+.todo-item {
+  text-align: left;
+  padding-bottom: .75em;
+}

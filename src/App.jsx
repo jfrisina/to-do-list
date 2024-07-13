@@ -4,15 +4,16 @@ import Todo from './Todo'
 
 export const ACTIONS = {
   ADD_TODO: 'add-todo',
-  TOGGLE_TODO: 'toggle-todo',
-  DELETE_TODO: 'delete-todo'
+  COMPLETE_TODO: 'complete-todo',
+  DELETE_TODO: 'delete-todo', 
+  EDIT_TODO: 'edit-todo'
 }
 
-function reducer(todos, action) { // takes in current state, and thentakes an action from the dispactch function from below
+function reducer(todos, action) { // takes in current state, and then takes an action from the dispatch function from below
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodo(action.payload.name)]
-    case ACTIONS.TOGGLE_TODO:
+    case ACTIONS.COMPLETE_TODO:
       return todos.map(todo => {
         if (todo.id === action.payload.id) {
           return { ...todo, complete: !todo.complete }
@@ -21,7 +22,8 @@ function reducer(todos, action) { // takes in current state, and thentakes an ac
       })
     case ACTIONS.DELETE_TODO: 
       return todos.filter(todo => todo.id !== action.payload.id)
-
+    // case ACTIONS.EDIT_TODO:
+    //   return 
     default: 
     return todos
   }
@@ -41,15 +43,17 @@ function App() {
       setName('')
   }
 
-  console.log(todos)
+  const sortedTodos = [...todos].sort((a, b) => b.id - a.id)
 
   return (
     <>
       <form onSubmit={handleSubmit}> 
-        <input type="text" value={name} onChange={event => setName(event.target.value)} />
+        <h1>To Do List</h1>
+        <input type="text" placeholder="Task goes here" value={name} onChange={event => setName(event.target.value)} />
+        <button type="submit">Add to List</button>
       </form>
-      {todos.map(todo => {
-        return <Todo key={todo.id} todo={todo} dispatch={dispatch}/>
+      {sortedTodos.map(todo => {
+        return <Todo key={todo.id} todo={todo} dispatch={dispatch} />
       })}
     </>
   )

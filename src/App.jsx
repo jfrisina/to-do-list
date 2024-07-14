@@ -1,4 +1,5 @@
-import { useReducer, useState } from 'react'
+// imports
+import { useReducer, useState, useEffect } from 'react'
 import './App.css'
 import Todo from './Todo'
 
@@ -22,8 +23,12 @@ function reducer(todos, action) { // takes in current state, and then takes an a
       })
     case ACTIONS.DELETE_TODO: 
       return todos.filter(todo => todo.id !== action.payload.id)
-    // case ACTIONS.EDIT_TODO:
-    //   return 
+    case ACTIONS.EDIT_TODO:
+      return  todos.map(todo => {
+        if (todo.id !== action.payload.id) {
+          return { ...todo, name: action.payload.newName }
+        }
+        return todo})
     default: 
     return todos
   }
@@ -37,12 +42,18 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, []) // calling reducer function above. 
   const [name, setName] = useState('')
 
+  // Change title of app on tab
+  useEffect(() => {
+    document.title = "To Do List";
+  }, [])
+
   function handleSubmit(event) {
     event.preventDefault()
     dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name} })
       setName('')
   }
 
+  // sort to do items by newest added first
   const sortedTodos = [...todos].sort((a, b) => b.id - a.id)
 
   return (

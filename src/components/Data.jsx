@@ -1,5 +1,5 @@
 // initial data to populate the to do list 
-const initialState = [
+const data = [
     {
       "userId": 1,
       "id": 1,

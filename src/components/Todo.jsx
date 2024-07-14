@@ -1,7 +1,7 @@
 /* To Do Component Layout -------------------------------------------------------------*/
 //imports
 import React from 'react' 
-import { ACTIONS } from './App' 
+import { ACTIONS } from '../App' 
 import { useState } from 'react'
 
 function Todo({ todo, dispatch }) {
@@ -45,7 +45,7 @@ function Todo({ todo, dispatch }) {
 			) : (
 				<>
 					<input type="checkbox" checked={todo.complete} onChange={() => dispatch({ type: ACTIONS.COMPLETE_TODO, payload: { id: todo.id }})} />
-					<span style={{ color: todo.complete ? '#AAA' : '#000' }}> {todo.name}</span>
+					<span style={{ color: todo.complete ? '#AAA' : '#000', textDecoration: todo.complete ? 'line-through' : 'none' }}> {todo.name}</span>
 					<button onClick={handleEdit}>Edit</button>
 					<button disabled={disabledButton} onClick={handleDelete}>Delete</button>
 				</>

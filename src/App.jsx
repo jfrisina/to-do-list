@@ -1,7 +1,8 @@
 // imports
 import { useReducer, useState, useEffect } from 'react'
 import './App.css'
-import Todo from './Todo'
+import Todo from './components/Todo'
+//import Data from './components/Data'
 
 export const ACTIONS = {
   ADD_TODO: 'add-todo',
@@ -39,7 +40,7 @@ function newTodo(name) {
 }
 
 function App() {
-  const [todos, dispatch] = useReducer(reducer, []) // calling reducer function above. 
+  const [todos, dispatch] = useReducer(reducer, [])//Data) // calling reducer function above. 
   const [name, setName] = useState('')
 
   // Change title of app on tab
